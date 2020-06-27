@@ -1,50 +1,51 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return ( 
-        <footer class="py-5 bg-primary">
-            <div class="container row">
-                <div class="col-12 col-md">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
-                <small class="d-block mb-3 text-style">Jorge Rojas © 2020</small>
+        <footer className="py-5 bg-primary">
+            <div className="container row">
+                <div className="col-12 col-md">
+                    <img src={"https://upload.wikimedia.org/wikipedia/commons/6/63/Ingress_Logo.png"} alt="Logo" width="54" height="54" />
+                    <small className="d-block mb-3 text-style">Jorge Rojas © 2020</small>
                 </div>
-                <div class="col-6 col-md">
-                <h5>Features</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-style" href="#">Cool stuff</a></li>
-                    <li><a class="text-style" href="#">Random feature</a></li>
-                    <li><a class="text-style" href="#">Team feature</a></li>
-                    <li><a class="text-style" href="#">Stuff for developers</a></li>
-                    <li><a class="text-style" href="#">Another one</a></li>
-                    <li><a class="text-style" href="#">Last time</a></li>
-                </ul>
+                <div className="col-6 col-md">
+                    <h5>Features</h5>
+                    <ul className="list-unstyled text-small">
+                        <li><Link to={'#'} className="text-style">Cool stuff</Link></li>
+                        <li><Link to={'#'} className="text-style">Random feature</Link></li>
+                        <li><Link to={'#'} className="text-style">Team feature</Link></li>
+                        <li><Link to={'#'} className="text-style">Stuff for developers</Link></li>
+                        <li><Link to={'#'} className="text-style">Another one</Link></li>
+                        <li><Link to={'#'} className="text-style">Last time</Link></li>
+                    </ul>
                 </div>
-                <div class="col-6 col-md">
-                <h5>Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-style" href="#">Resource</a></li>
-                    <li><a class="text-style" href="#">Resource name</a></li>
-                    <li><a class="text-style" href="#">Another resource</a></li>
-                    <li><a class="text-style" href="#">Final resource</a></li>
-                </ul>
+                <div className="col-6 col-md">
+                    <h5>Resources</h5>
+                    <ul className="list-unstyled text-small">
+                        <li><Link to={'#'} className="text-style">Resource</Link></li>
+                        <li><Link to={'#'} className="text-style">Resource name</Link></li>
+                        <li><Link to={'#'} className="text-style">Another resource</Link></li>
+                        <li><Link to={'#'} className="text-style">Final resource</Link></li>
+                    </ul>
                 </div>
-                <div class="col-6 col-md">
-                <h5>Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-style" href="#">Business</a></li>
-                    <li><a class="text-style" href="#">Education</a></li>
-                    <li><a class="text-style" href="#">Government</a></li>
-                    <li><a class="text-style" href="#">Gaming</a></li>
-                </ul>
+                <div className="col-6 col-md">
+                    <h5>Resources</h5>
+                    <ul className="list-unstyled text-small">
+                        <li><Link to={'#'} className="text-style">Business</Link></li>
+                        <li><Link to={'#'} className="text-style">Education</Link></li>
+                        <li><Link to={'#'} className="text-style">Government</Link></li>
+                        <li><Link to={'#'} className="text-style">Gaming</Link></li>
+                    </ul>
                 </div>
-                <div class="col-6 col-md">
-                <h5>About</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-style" href="#">Team</a></li>
-                    <li><a class="text-style" href="#">Locations</a></li>
-                    <li><a class="text-style" href="#">Privacy</a></li>
-                    <li><a class="text-style" href="#">Terms</a></li>
-                </ul>
+                <div className="col-6 col-md">
+                    <h5>About</h5>
+                    <ul className="list-unstyled text-small">
+                        <li><Link to={'#'} className="text-style">Team</Link></li>
+                        <li><Link to={'#'} className="text-style">Locations</Link></li>
+                        <li><Link to={'#'} className="text-style">Privacy</Link></li>
+                        <li><Link to={'#'} className="text-style">Terms</Link></li>
+                    </ul>
                 </div>
             </div>
         </footer>

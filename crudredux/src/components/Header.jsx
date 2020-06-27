@@ -1,42 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 
 const Header = () => {
     return ( 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between">
-
-            <Link to={'/'} className="navbar-brand">DoDoTask</Link>
-
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <Link to={'/'} className="nav-link">Home</Link>
-                    </li>
-                    <li class="nav-item">
-                        <Link to={'/'} className="nav-link">Features</Link>
-                    </li>
-                    <li class="nav-item">
-                        <Link to={'/'} className="nav-link">Pricing</Link>
-                    </li>
-                    <li class="nav-item">
-                        <Link to={'/'} className="nav-link">About</Link>
-                    </li>
-                </ul>
-
-                <div class="d-block d-md-inline-block">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <Link to={'/productos/nuevo'} className="nav-link">Agregar producto &#43;</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </nav>
+        <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" >
+            <Navbar.Brand href="/">DoDoTask</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                <Nav.Link href="#features">Features</Nav.Link>
+                <Nav.Link href="#pricing">Pricing</Nav.Link>
+                <NavDropdown title="Productos" id="collasible-nav-dropdown">
+                    <NavDropdown.Item href="/">Ver productos</NavDropdown.Item>
+                    <NavDropdown.Item href="/productos/nuevo">Agregar producto &#43;</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                </NavDropdown>
+                </Nav>
+                <Nav>
+                <Nav.Link href="#deets">More deets</Nav.Link>
+                <Nav.Link eventKey={2} href="#memes">
+                    Dank memes
+                </Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
      );
 }
  
