@@ -1,3 +1,9 @@
+import {
+    AGREGAR_PRODUCTO,
+    AGREGAR_PRODUCTO_EXITO,
+    AGREGAR_PRODUCTO_ERROR
+} from '../types/index';
+
 //Cada reducer tiene su propio state
 const initialState = {
     productos: [], //Definimos el arreglo de productos. Este se llenará cuando hagamos las consultas a la db.

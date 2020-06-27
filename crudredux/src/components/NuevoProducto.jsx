@@ -1,6 +1,32 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+//useDispatch: Sirve para mandar a ejecutar las acciones que tengamos.
+//useSelector: Es la forma que tenemos acceso al State dentro del componente.
+
+//Actions de redux
+import { crearNuevoProductoAction } from '../actions/productoActions';
 
 const NuevoProducto = () => {
+
+    //Utilizamos useDispatch y crea una funcion que se utiliza en la funcion 1. 
+    const dispatch = useDispatch();
+    //1. Aqui llamamos una funcion de redux que manda a llamar al action crearNuevoProductoAction
+    //Para poder utilizar la funcion. en la función 2.
+    const agregarProducto = () => dispatch (crearNuevoProductoAction() ); //dispatch es una funcion que utiliza otra función.
+    // Le pasamos crearNuevoProductoAction para comunicarse con las acciones (productoActions).
+
+    //2. Cuando el usuario haga submit
+    const submitNuevoProducto = e => {
+        e.preventDefault();
+
+        //Validamos el formulario
+
+        //Revisamos que no exitan errores
+
+        //Crear el nuevo producto añadiendo la función agregarProducto
+        agregarProducto()
+    }
+
     return ( 
         <div className="row justify-content-center">
             <div className="col-md-10">
@@ -8,7 +34,9 @@ const NuevoProducto = () => {
                     <div className="card-body">
                         <h2 className="text-center mb-4 font-wigth-bold">Agregar nuevo producto.</h2>
 
-                        <form>
+                        <form
+                            onSubmit={ submitNuevoProducto}
+                        >
                             <div className="form-group">
                                 <label htmlFor="">Nombre del producto</label>
                                 <input 
