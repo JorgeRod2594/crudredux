@@ -16,6 +16,21 @@ const initialState = {
 export default function(state = initialState, action) { //Cualquier reducer es un switch
     /*Colocamos todos los cases que describen que pasará en la aplicación y van a estar cambiando el state mediante el payload.*/
     switch(action.type) {
+
+        case AGREGAR_PRODUCTO:
+            return {
+                ...state, //Retornamos una copia del state
+                loading: true //Activamos loading 
+            }
+        
+        case AGREGAR_PRODUCTO_EXITO:
+            return {
+                ...state,
+                loading: false, //Apagamos porque ya se guardo en la se de datos
+                productos: [...state.productos, action.payload] //Hacemos una copia de productos para que no
+                //borre los productos que ya se encuentren y agregue el nuevo.
+            }
+
         default:
             return state;
     }
