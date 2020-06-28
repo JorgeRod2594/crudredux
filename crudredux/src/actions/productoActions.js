@@ -66,10 +66,31 @@ const agregarProductoError = (estado) => ({
 export function obtenerProductosAction(producto) {
     return async (dispatch) => {
         dispatch(descargaProductos() );
+
+        try {//Si la funcion de arriba se ejecuta correctamente haz los siguiente:
+
+            const respuesta = await clienteAxios.get('/productos');
+            //console.log(respuesta.data.productos); muestra la lista de productos obtenida de la api
+            //Si la petición es correcta, llamamos con dispatch a la funcion descargaProductosExitosa
+            dispatch(descargaProductosExitosa(respuesta.data.productos) );
+            
+        } catch (error) {//en caso de no ser exitosa:
+            dispatch(descargaProductosError() );//Mandamos la accion para el error
+        }
     }
 }
 
 const descargaProductos = () => ({
     type: DESCARGA_PRODUCTOS,
     payload: true //Este true es para indicar que se esta descargando 4los productos y cuando termine pasará a false
-})
+});
+
+const descargaProductosExitosa = (productos) => ({
+    type: DESCARGA_PRODUCTOS_EXITO,
+    payload: productos
+});
+
+const descargaProductosError = () => ({
+    type: DESCARGA_PRODUCTOS_ERROR,
+    payload:true
+});

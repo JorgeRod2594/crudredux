@@ -35,6 +35,7 @@ export default function(state = initialState, action) { //Cualquier reducer es u
             }
 
         case AGREGAR_PRODUCTO_ERROR:
+        case DESCARGA_PRODUCTOS_ERROR:
             return {
                 ...state,
                 loading: false,//Debido a que terminó antes de tiempo.
@@ -45,6 +46,14 @@ export default function(state = initialState, action) { //Cualquier reducer es u
             return {
                 ...state,
                 loading: action.payload
+            }
+
+        case DESCARGA_PRODUCTOS_EXITO:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                productos: action.payload //Le pasamos el array de productos de la consulta en el action
             }
 
         default:
