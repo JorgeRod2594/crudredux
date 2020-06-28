@@ -31,6 +31,13 @@ export default function(state = initialState, action) { //Cualquier reducer es u
                 //borre los productos que ya se encuentren y agregue el nuevo.
             }
 
+        case AGREGAR_PRODUCTO_ERROR:
+            return {
+                ...state,
+                loading: false,//Debido a que terminó antes de tiempo.
+                error: action.payload
+            }
+
         default:
             return state;
     }

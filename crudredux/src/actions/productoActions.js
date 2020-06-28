@@ -33,6 +33,7 @@ const agregarProductoExito = (producto) => ({ //Le pasamos el producto en el pay
 });
 
 //Si hubo un error
-const agregarProductoError = () => ({
-    type: AGREGAR_PRODUCTO_ERROR
+const agregarProductoError = (estado) => ({
+    type: AGREGAR_PRODUCTO_ERROR,
+    payload: estado
 });
