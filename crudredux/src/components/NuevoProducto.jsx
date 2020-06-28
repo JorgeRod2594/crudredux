@@ -16,6 +16,10 @@ const NuevoProducto = () => {
 
     //Utilizamos useDispatch y crea una funcion que se utiliza en la funcion 1. 
     const dispatch = useDispatch();
+    //Acceder al state del store
+    const cargando = useSelector(state => state.productos.loading);//Cargando será igual al state
+    const error = useSelector(state => state.productos.error);
+    //console.log(cargando);//asi podremos ver el state
     //1. Aqui llamamos una funcion de redux que manda a llamar al action crearNuevoProductoAction
     //Para poder utilizar la funcion. en la función 2.
     const agregarProducto = (producto) => dispatch (crearNuevoProductoAction(producto) ); //dispatch es una funcion que utiliza otra función.
@@ -79,6 +83,9 @@ const NuevoProducto = () => {
                                 Agregar
                             </button>
                         </form>
+
+                        { cargando ? <p>Cargando...</p> : null /*si cargando es true muestra cargando, si no oculta esto*/}
+                        { error ? <p className="alert alert-danger p2 mt-4 text-center">Hubo un error en la inserción.</p>: null }
                     </div>
                 </div>
             </div>

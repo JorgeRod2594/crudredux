@@ -4,18 +4,24 @@ import { //Actions se comunica mucho con reducer
     AGREGAR_PRODUCTO_ERROR
 } from '../types/index';
 
+import clienteAxios from '../config/axios';//Importamos el cliente axios
+
 //Aqui van las funciones que se van a utilizar en la vista
 
 //Crear nuevos productos
 export function crearNuevoProductoAction(producto) {
-    return (dispatch) => {
-        //console.log(producto);
+    return async (dispatch) => {
+        console.log(producto);
         dispatch(agregarProducto() );
 
         //Validamos que la operacion de agregar el producto sea correcta
         try {//Si la funcion de arriba se ejecuta correctamente haz los siguiente:
+            //insertamos en la api
+            await clienteAxios.post('/productos', producto);
+            //Si la inserción es correcta, actualiza el state
             dispatch(agregarProductoExito(producto) ); //Le pasamos el producto para que modifique el state
         } catch (error) {
+            console.log(error);
             dispatch(agregarProductoError(true) ); //Activamos el error
         }
     }
