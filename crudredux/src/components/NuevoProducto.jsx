@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 //Actions de redux
 import { crearNuevoProductoAction } from '../actions/productoActions';
+import Swal from 'sweetalert2';
 
 
-const NuevoProducto = () => {
+const NuevoProducto = ({history}) => { //Accedemos al routing.history para poder redireccionar al usuario al terminar de insertar un producto.
 
     //State del componente. Como no lo vamos a pasar por diferentes componentes se puede utilizar 
     const [ nombre, guardarNombre ] = useState('');
@@ -41,7 +42,46 @@ const NuevoProducto = () => {
             nombre,
             precio
         })
+
+        //Redireccionamos al componente principal
+        history.push('/');
     }
+
+    const cancelarRegistro = () => {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'col btn btn-success mt-2 ',
+              cancelButton: 'col btn btn-danger mt-2 mr-3'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro que quieres salir?',
+            text: "¡Los datos que estan en el formulario no se guardarán.!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.value) {
+              swalWithBootstrapButtons.fire(
+                'Operación cancelada',
+                'Será re dirigido a la página principal.',
+                'success'
+              )
+              history.push('/');
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              
+            }
+          })
+    }
+    
 
     return ( 
         <div className="row justify-content-center">
@@ -76,12 +116,28 @@ const NuevoProducto = () => {
                                     onChange={e => guardarPrecio(Number(e.target.value))}
                                 />
                             </div>
-                            <button
-                                type="submit"
-                                className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
-                            >
-                                Agregar
-                            </button>
+                            <div className="form-group">
+                                <div className="row">
+                                    <div className="col-sm">
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary font-weight-bold text-uppercase d-block w-100 mt-2"
+                                        >
+                                            Agregar
+                                        </button>
+                                    </div>
+                                    <div className="col-sm">
+                                        <button
+                                            type="reset"
+                                            className="btn btn-danger font-weight-bold text-uppercase d-block w-100 mt-2"
+                                            onClick={() => cancelarRegistro() }
+                                        >
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </form>
 
                         { cargando ? <p>Cargando...</p> : null /*si cargando es true muestra cargando, si no oculta esto*/}

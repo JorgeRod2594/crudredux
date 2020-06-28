@@ -4,7 +4,8 @@ import { //Actions se comunica mucho con reducer
     AGREGAR_PRODUCTO_ERROR
 } from '../types/index';
 
-import clienteAxios from '../config/axios';//Importamos el cliente axios
+import clienteAxios from '../config/axios';//Importamos el cliente axios para la comunicacion con la API
+import Swal from 'sweetalert2';
 
 //Aqui van las funciones que se van a utilizar en la vista
 
@@ -20,9 +21,21 @@ export function crearNuevoProductoAction(producto) {
             await clienteAxios.post('/productos', producto);
             //Si la inserción es correcta, actualiza el state
             dispatch(agregarProductoExito(producto) ); //Le pasamos el producto para que modifique el state
+            //Mandamos una alerta de exito de la operación
+            Swal.fire (
+                'Listo',
+                'El producto se agregó correctamente.',
+                'success'
+            );
         } catch (error) {
             console.log(error);
             dispatch(agregarProductoError(true) ); //Activamos el error
+            //Mostramos una alerta de fallo en la accion
+            Swal.fire ({
+                icon: 'error',
+                title: '¡Ops!',
+                text: 'Hubo un error, intenta de nuevo.'
+            });
         }
     }
     
