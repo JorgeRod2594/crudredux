@@ -7,9 +7,9 @@ import { //Actions se comunica mucho con reducer
 //Aqui van las funciones que se van a utilizar en la vista
 
 //Crear nuevos productos
-export function crearNuevoProductoAction() {
+export function crearNuevoProductoAction(producto) {
     return () => {
-        console.log('desde action');
+        console.log(producto);
     }
     
 }
