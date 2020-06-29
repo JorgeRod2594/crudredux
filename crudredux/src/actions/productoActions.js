@@ -9,6 +9,7 @@ import { //Actions se comunica mucho con reducer
     PRODUCTO_ELIMINADO_EXITO,
     PRODUCTO_ELIMINADO_ERROR,
     OBTENER_PRODUCTO_EDITAR,
+    EDITANDO_PRODUCTO,
     PRODUCTO_EDITADO_EXITO,
     PRODUCTO_EDITADO_ERROR
 } from '../types/index';
@@ -151,5 +152,27 @@ export function obtenerProductoEditar(producto) {
 
 const obtenerProductoEditarAction = (producto) => ({
     type: OBTENER_PRODUCTO_EDITAR,
+    payload: producto
+})
+
+///////////////////////////////////////////////////////////////////////////7
+
+//Edita un registro(producto) en la api y en el state
+export function editarProductoAction(producto) { //Toma el nuevo valor del producto
+    return async (dispatch) => {
+        dispatch(editarProducto(producto) );
+
+        try {
+            //Hacemos la consulta para actualizar los datos del producto
+            await clienteAxios.put(`/productos/${producto.id}`, producto); //le pasamos el id y los nuevos datos del producto
+            
+        } catch (error) {
+            
+        }
+    }
+}
+
+const editarProducto = (producto) => ({//Tomas los nuevos datos del producto
+    type: EDITANDO_PRODUCTO,
     payload: producto
 })
