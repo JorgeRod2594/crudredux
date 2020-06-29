@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 //REdux, para eliminar un producto
 import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 import { borraProductoAction } from '../actions/productoActions';
 
 const Producto = ({producto}) => { //Le pasamos el prop producto con destructuring
@@ -16,9 +17,22 @@ const Producto = ({producto}) => { //Le pasamos el prop producto con destructuri
     const confirmarEliminarProducto = id => {
         
         //Preguntar al usuario
-
-        //Pasarlo al action
-        dispatch(borraProductoAction(id) );
+        Swal.fire({
+            title: '¿Estás seguro que deseas eliminar el producto?',
+            text: "El producto ya no estará disponible definitivamente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No'
+          }).then((result) => {
+            if (result.value) {
+                //Pasarlo al action
+                dispatch(borraProductoAction(id) );
+            }
+          })
+        
     }
 
     return ( 
