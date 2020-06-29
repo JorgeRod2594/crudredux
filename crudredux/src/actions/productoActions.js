@@ -4,7 +4,10 @@ import { //Actions se comunica mucho con reducer
     AGREGAR_PRODUCTO_ERROR,
     DESCARGA_PRODUCTOS,
     DESCARGA_PRODUCTOS_EXITO,
-    DESCARGA_PRODUCTOS_ERROR
+    DESCARGA_PRODUCTOS_ERROR,
+    OBTENER_PRODUCTO_ELIMINAR,
+    PRODUCTO_ELIMINADO_EXITO,
+    PRODUCTO_ELIMINADO_ERROR
 } from '../types/index';
 
 import clienteAxios from '../config/axios';//Importamos el cliente axios para la comunicacion con la API
@@ -93,4 +96,19 @@ const descargaProductosExitosa = (productos) => ({
 const descargaProductosError = () => ({
     type: DESCARGA_PRODUCTOS_ERROR,
     payload:true
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+//Selecciona y borra un producto
+export function borraProductoAction(id) {
+    return async (dispatch) => {
+        dispatch(obtenerProductoEliminar(id) );
+        console.log(id);
+    }
+}
+
+const obtenerProductoEliminar = (id) => ({
+    type: OBTENER_PRODUCTO_ELIMINAR,
+    payload:id
 });

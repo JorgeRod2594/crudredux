@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const clienteAxios = axios.create({
-    baseURL: 'https://dodotask.free.beeceptor.com/'
+    baseURL: 'https://dodo-task.free.beeceptor.com/'
 });
 
 export default clienteAxios; //Exportamos para poder hacer las consultas en donde se requiera

@@ -4,14 +4,18 @@ import {
     AGREGAR_PRODUCTO_ERROR,
     DESCARGA_PRODUCTOS,
     DESCARGA_PRODUCTOS_EXITO,
-    DESCARGA_PRODUCTOS_ERROR
+    DESCARGA_PRODUCTOS_ERROR,
+    OBTENER_PRODUCTO_ELIMINAR,
+    PRODUCTO_ELIMINADO_EXITO,
+    PRODUCTO_ELIMINADO_ERROR
 } from '../types/index';
 
 //Cada reducer tiene su propio state
 const initialState = {
     productos: [], //Definimos el arreglo de productos. Este se llenará cuando hagamos las consultas a la db.
     error: null, //Para mostrar errores
-    loading: false //Para realizar la espera mientras carga los datos
+    loading: false, //Para realizar la espera mientras carga los datos
+    productoeliminar: null
 }
 
 //El store de  pasa el state y el action que ejecutará el reducer, encaso de no pasarle nada le pasamos el initialState
@@ -54,6 +58,11 @@ export default function(state = initialState, action) { //Cualquier reducer es u
                 loading: false,
                 error: false,
                 productos: action.payload //Le pasamos el array de productos de la consulta en el action
+            }
+        case OBTENER_PRODUCTO_ELIMINAR:
+            return {
+                ...state,
+                productoeliminar: action.payload
             }
 
         default:
