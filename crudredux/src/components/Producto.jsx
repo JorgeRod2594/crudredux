@@ -7,6 +7,7 @@ const Producto = ({producto}) => { //Le pasamos el prop producto con destructuri
     const { nombre, precio, id } = producto;
     return ( 
         <tr>
+            <th>{id}</th>
             <th>{nombre}</th>
             <th><span className="font-weight-bold">$ {precio}</span></th>
             <th>

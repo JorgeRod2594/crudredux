@@ -47,6 +47,7 @@ const NuevoProducto = ({history}) => { //Accedemos al routing.history para poder
         history.push('/');
     }
 
+    //Mostramos las alertas para cancelar un registro de un producto y redirigirlo
     const cancelarRegistro = () => {
 
         const swalWithBootstrapButtons = Swal.mixin({

@@ -68,7 +68,7 @@ export function obtenerProductosAction(producto) {
         dispatch(descargaProductos() );
 
         try {//Si la funcion de arriba se ejecuta correctamente haz los siguiente:
-
+            
             const respuesta = await clienteAxios.get('/productos');
             //console.log(respuesta.data.productos); muestra la lista de productos obtenida de la api
             //Si la petición es correcta, llamamos con dispatch a la funcion descargaProductosExitosa
