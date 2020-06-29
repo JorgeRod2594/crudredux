@@ -7,7 +7,10 @@ import {
     DESCARGA_PRODUCTOS_ERROR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINADO_EXITO,
-    PRODUCTO_ELIMINADO_ERROR
+    PRODUCTO_ELIMINADO_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    PRODUCTO_EDITADO_EXITO,
+    PRODUCTO_EDITADO_ERROR
 } from '../types/index';
 import Producto from '../components/Producto';
 
@@ -16,7 +19,8 @@ const initialState = {
     productos: [], //Definimos el arreglo de productos. Este se llenará cuando hagamos las consultas a la db.
     error: null, //Para mostrar errores
     loading: false, //Para realizar la espera mientras carga los datos
-    productoeliminar: null
+    productoeliminar: null,
+    productoeditar: null
 }
 
 //El store de  pasa el state y el action que ejecutará el reducer, encaso de no pasarle nada le pasamos el initialState
@@ -73,6 +77,12 @@ export default function(state = initialState, action) { //Cualquier reducer es u
                 productos: state.productos.filter(producto => producto.id !== state.productoeliminar),
                 //Le pasamos todos los productos menos el que deseamo eliminar. Iteramos en cada producto
                 productoeliminar: null //limpiamos la variable que guarda el id del producto a eliminar.
+            }
+
+        case OBTENER_PRODUCTO_EDITAR:
+            return {
+                ...state,
+                productoeditar: action.payload
             }
 
         default:

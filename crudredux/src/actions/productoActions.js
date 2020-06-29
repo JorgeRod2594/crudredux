@@ -7,7 +7,10 @@ import { //Actions se comunica mucho con reducer
     DESCARGA_PRODUCTOS_ERROR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINADO_EXITO,
-    PRODUCTO_ELIMINADO_ERROR
+    PRODUCTO_ELIMINADO_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    PRODUCTO_EDITADO_EXITO,
+    PRODUCTO_EDITADO_ERROR
 } from '../types/index';
 
 import clienteAxios from '../config/axios';//Importamos el cliente axios para la comunicacion con la API
@@ -130,9 +133,23 @@ const obtenerProductoEliminar = (id) => ({
 
 const eliminarProductoExito = () => ({
     type: PRODUCTO_ELIMINADO_EXITO
-})
+});
 
 const eliminarProductoError = () => ({
     type: PRODUCTO_ELIMINADO_ERROR,
     payload: true
+});
+
+////////////////////////////////////////////////////////////////////////////
+
+//Colocar producto en edición. Aqui no hacemos llamado a la api, solo lo colocamos en activo
+export function obtenerProductoEditar(producto) {
+    return (dispatch) => {
+        dispatch(obtenerProductoEditarAction(producto))
+    }
+}
+
+const obtenerProductoEditarAction = (producto) => ({
+    type: OBTENER_PRODUCTO_EDITAR,
+    payload: producto
 })
