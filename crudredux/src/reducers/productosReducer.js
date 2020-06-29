@@ -1,7 +1,10 @@
 import {
     AGREGAR_PRODUCTO,
     AGREGAR_PRODUCTO_EXITO,
-    AGREGAR_PRODUCTO_ERROR
+    AGREGAR_PRODUCTO_ERROR,
+    DESCARGA_PRODUCTOS,
+    DESCARGA_PRODUCTOS_EXITO,
+    DESCARGA_PRODUCTOS_ERROR
 } from '../types/index';
 
 //Cada reducer tiene su propio state
@@ -32,10 +35,25 @@ export default function(state = initialState, action) { //Cualquier reducer es u
             }
 
         case AGREGAR_PRODUCTO_ERROR:
+        case DESCARGA_PRODUCTOS_ERROR:
             return {
                 ...state,
                 loading: false,//Debido a que terminó antes de tiempo.
                 error: action.payload
+            }
+
+        case DESCARGA_PRODUCTOS:
+            return {
+                ...state,
+                loading: action.payload
+            }
+
+        case DESCARGA_PRODUCTOS_EXITO:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                productos: action.payload //Le pasamos el array de productos de la consulta en el action
             }
 
         default:

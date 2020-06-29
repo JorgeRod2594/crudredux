@@ -1,7 +1,10 @@
 import { //Actions se comunica mucho con reducer
     AGREGAR_PRODUCTO,
     AGREGAR_PRODUCTO_EXITO,
-    AGREGAR_PRODUCTO_ERROR
+    AGREGAR_PRODUCTO_ERROR,
+    DESCARGA_PRODUCTOS,
+    DESCARGA_PRODUCTOS_EXITO,
+    DESCARGA_PRODUCTOS_ERROR
 } from '../types/index';
 
 import clienteAxios from '../config/axios';//Importamos el cliente axios para la comunicacion con la API
@@ -12,7 +15,7 @@ import Swal from 'sweetalert2';
 //Crear nuevos productos
 export function crearNuevoProductoAction(producto) {
     return async (dispatch) => {
-        console.log(producto);
+        //console.log(producto);
         dispatch(agregarProducto() );
 
         //Validamos que la operacion de agregar el producto sea correcta
@@ -55,4 +58,39 @@ const agregarProductoExito = (producto) => ({ //Le pasamos el producto en el pay
 const agregarProductoError = (estado) => ({
     type: AGREGAR_PRODUCTO_ERROR,
     payload: estado
+});
+
+//////////////////////////////////////////////////////////////////////////////////7
+
+//Funcion que descarga los productos de la base de datos
+export function obtenerProductosAction(producto) {
+    return async (dispatch) => {
+        dispatch(descargaProductos() );
+
+        try {//Si la funcion de arriba se ejecuta correctamente haz los siguiente:
+            
+            const respuesta = await clienteAxios.get('/productos');
+            //console.log(respuesta.data.productos); muestra la lista de productos obtenida de la api
+            //Si la petición es correcta, llamamos con dispatch a la funcion descargaProductosExitosa
+            dispatch(descargaProductosExitosa(respuesta.data.productos) );
+            
+        } catch (error) {//en caso de no ser exitosa:
+            dispatch(descargaProductosError() );//Mandamos la accion para el error
+        }
+    }
+}
+
+const descargaProductos = () => ({
+    type: DESCARGA_PRODUCTOS,
+    payload: true //Este true es para indicar que se esta descargando 4los productos y cuando termine pasará a false
+});
+
+const descargaProductosExitosa = (productos) => ({
+    type: DESCARGA_PRODUCTOS_EXITO,
+    payload: productos
+});
+
+const descargaProductosError = () => ({
+    type: DESCARGA_PRODUCTOS_ERROR,
+    payload:true
 });
