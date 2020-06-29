@@ -9,6 +9,7 @@ import {
     PRODUCTO_ELIMINADO_EXITO,
     PRODUCTO_ELIMINADO_ERROR
 } from '../types/index';
+import Producto from '../components/Producto';
 
 //Cada reducer tiene su propio state
 const initialState = {
@@ -40,6 +41,7 @@ export default function(state = initialState, action) { //Cualquier reducer es u
 
         case AGREGAR_PRODUCTO_ERROR:
         case DESCARGA_PRODUCTOS_ERROR:
+        case PRODUCTO_ELIMINADO_ERROR:
             return {
                 ...state,
                 loading: false,//Debido a que terminó antes de tiempo.
@@ -63,6 +65,14 @@ export default function(state = initialState, action) { //Cualquier reducer es u
             return {
                 ...state,
                 productoeliminar: action.payload
+            }
+        
+        case PRODUCTO_ELIMINADO_EXITO:
+            return {
+                ...state,
+                productos: state.productos.filter(producto => producto.id !== state.productoeliminar),
+                //Le pasamos todos los productos menos el que deseamo eliminar. Iteramos en cada producto
+                productoeliminar: null //limpiamos la variable que guarda el id del producto a eliminar.
             }
 
         default:
