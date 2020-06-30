@@ -9,11 +9,10 @@ import {
     PRODUCTO_ELIMINADO_EXITO,
     PRODUCTO_ELIMINADO_ERROR,
     OBTENER_PRODUCTO_EDITAR,
-    EDITANDO_PRODUCTO,
     PRODUCTO_EDITADO_EXITO,
     PRODUCTO_EDITADO_ERROR
 } from '../types/index';
-import Producto from '../components/Producto';
+
 
 //Cada reducer tiene su propio state
 const initialState = {
@@ -43,7 +42,8 @@ export default function(state = initialState, action) { //Cualquier reducer es u
                 productos: [...state.productos, action.payload] //Hacemos una copia de productos para que no
                 //borre los productos que ya se encuentren y agregue el nuevo.
             }
-
+        
+        case PRODUCTO_EDITADO_ERROR:
         case AGREGAR_PRODUCTO_ERROR:
         case DESCARGA_PRODUCTOS_ERROR:
         case PRODUCTO_ELIMINADO_ERROR:
@@ -84,6 +84,18 @@ export default function(state = initialState, action) { //Cualquier reducer es u
             return {
                 ...state,
                 productoeditar: action.payload
+            }
+
+        case PRODUCTO_EDITADO_EXITO:
+            return {
+                ...state,
+                productoeditar: null, //liberamos el producto
+                //Debemos reacorrer cada uno de los productos hasta encontrar el que coincida en el id
+                //Los que no sean igual al id se retornan igual.
+                productos: state.productos.map(producto =>
+                    producto.id === action.payload.id ? producto = action.payload : producto //Reemplazo 
+                    //el producto actual con lo que se pase como payload
+                )
             }
 
         default:

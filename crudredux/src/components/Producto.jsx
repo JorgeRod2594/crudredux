@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 //REdux, para eliminar un producto
 import { useDispatch } from 'react-redux';
@@ -38,7 +38,7 @@ const Producto = ({producto}) => { //Le pasamos el prop producto con destructuri
 
     //Funcion que redirigue de forma programada
     const redireccionarEdicion = producto => {
-        dispatch(obtenerProductoEditar(producto));
+        dispatch(obtenerProductoEditar(producto) );
         history.push(`/productos/editar/${producto.id}`)
     }
 

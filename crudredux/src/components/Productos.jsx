@@ -45,7 +45,7 @@ const Productos = () => {
                 </thead>
 
                 <tbody>
-                    { productos.length === 0 ?  <p className="text-center">No hay productos</p> : (
+                    { productos.length === 0 ?  <tr><th><p className="text-center">No hay productos</p></th></tr> : (
                         productos.map(producto => ( //Mapeamos los elementos de productos
                             <Producto //Llamamos al componente producto
                                 key={producto.id}
