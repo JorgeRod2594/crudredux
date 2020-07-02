@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 //useDispatch: Sirve para mandar a ejecutar las acciones que tengamos.
 //useSelector: Es la forma que tenemos acceso al State dentro del componente.
+import {v4 as uuid} from "uuid";
 
 //Actions de redux
 import { crearNuevoProductoAction } from '../actions/productoActions';
+import { mostrarAlerta, ocultarAlerta } from '../actions/alertaActions'
 import Swal from 'sweetalert2';
 
 
@@ -12,14 +14,14 @@ const NuevoProducto = ({history}) => { //Accedemos al routing.history para poder
 
     //State del componente. Como no lo vamos a pasar por diferentes componentes se puede utilizar 
     const [ nombre, guardarNombre ] = useState('');
-    const [ precio, guardarPrecio ] = useState(0)
-
+    const [ precio, guardarPrecio ] = useState(0);
 
     //Utilizamos useDispatch y crea una funcion que se utiliza en la funcion 1. 
     const dispatch = useDispatch();
     //Acceder al state del store
     const cargando = useSelector(state => state.productos.loading);//Cargando será igual al state
     const error = useSelector(state => state.productos.error);
+    const alerta = useSelector(state=> state.alertas.alerta);
     //console.log(cargando);//asi podremos ver el state
     //1. Aqui llamamos una funcion de redux que manda a llamar al action crearNuevoProductoAction
     //Para poder utilizar la funcion. en la función 2.
@@ -29,16 +31,23 @@ const NuevoProducto = ({history}) => { //Accedemos al routing.history para poder
     //2. Cuando el usuario haga submit
     const submitNuevoProducto = e => {
         e.preventDefault();
-
+        const id = uuid(); //Creamos un id provicional
         //Validamos el formulario
         if(nombre.trim() === '' || precio <= 0) {
+            const msgAlerta = {
+                msg:'Todos los campos son obligatorios.',
+                clases: 'alert alert-danger text-center text-uppercase p3'
+            }
+            dispatch( mostrarAlerta(msgAlerta) );
             return; //La validación se hace por medio de redux
         }
-
-        //Revisamos que no exitan errores
-
+        
+        //Si ya no existen errores
+        dispatch(ocultarAlerta() );
+        
         //Crear el nuevo producto añadiendo la función agregarProducto
         agregarProducto({ //le pasamos el objeto
+            id,
             nombre,
             precio
         })
@@ -90,7 +99,7 @@ const NuevoProducto = ({history}) => { //Accedemos al routing.history para poder
                 <div className="card">
                     <div className="card-body">
                         <h2 className="text-center mb-4 font-wigth-bold">Agregar nuevo producto.</h2>
-
+                            {alerta ? <p className={alerta.clases}>{alerta.msg}</p>: null}
                         <form
                             onSubmit={ submitNuevoProducto}
                         >

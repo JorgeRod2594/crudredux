@@ -7,7 +7,11 @@ import { //Actions se comunica mucho con reducer
     DESCARGA_PRODUCTOS_ERROR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINADO_EXITO,
-    PRODUCTO_ELIMINADO_ERROR
+    PRODUCTO_ELIMINADO_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    EDITANDO_PRODUCTO,
+    PRODUCTO_EDITADO_EXITO,
+    PRODUCTO_EDITADO_ERROR
 } from '../types/index';
 
 import clienteAxios from '../config/axios';//Importamos el cliente axios para la comunicacion con la API
@@ -130,9 +134,55 @@ const obtenerProductoEliminar = (id) => ({
 
 const eliminarProductoExito = () => ({
     type: PRODUCTO_ELIMINADO_EXITO
-})
+});
 
 const eliminarProductoError = () => ({
     type: PRODUCTO_ELIMINADO_ERROR,
     payload: true
+});
+
+////////////////////////////////////////////////////////////////////////////
+
+//Colocar producto en edición. Aqui no hacemos llamado a la api, solo lo colocamos en activo
+export function obtenerProductoEditar(producto) {
+    return (dispatch) => {
+        dispatch(obtenerProductoEditarAction(producto))
+    }
+}
+
+const obtenerProductoEditarAction = (producto) => ({
+    type: OBTENER_PRODUCTO_EDITAR,
+    payload: producto
 })
+
+///////////////////////////////////////////////////////////////////////////7
+
+//Edita un registro(producto) en la api y en el state
+export function editarProductoAction(producto) { //Toma el nuevo valor del producto
+    return async (dispatch) => {
+        dispatch(editarProducto() );
+
+        try {
+            //Hacemos la consulta para actualizar los datos del producto
+            await clienteAxios.put(`/productos/${producto.id}`, producto); //le pasamos el id y el producto actualizado siguiendo los eztandares REST
+            dispatch( editarProductoExito(producto) ); //Indica que se guardó correctamente
+            
+        } catch (error) {
+            dispatch(editarProductoError() );
+        }
+    }
+}
+
+const editarProducto = () => ({
+    type: EDITANDO_PRODUCTO
+})
+
+const editarProductoExito = (producto) => ({//Toma el producto nuevo
+    type: PRODUCTO_EDITADO_EXITO,
+    payload: producto
+})
+
+const editarProductoError = () => ({
+    type: PRODUCTO_EDITADO_ERROR,
+    payload: true
+});

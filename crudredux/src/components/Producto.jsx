@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 //REdux, para eliminar un producto
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
-import { borraProductoAction } from '../actions/productoActions';
+import { borraProductoAction, obtenerProductoEditar } from '../actions/productoActions';
 
 const Producto = ({producto}) => { //Le pasamos el prop producto con destructuring
 
@@ -12,6 +12,7 @@ const Producto = ({producto}) => { //Le pasamos el prop producto con destructuri
     const { nombre, precio, id } = producto;
 
     const dispatch = useDispatch();
+    const history = useHistory(); //Necesario para utilizar la libreria useHistory para redireccion
 
     //Confirmar si desea eliminarlo
     const confirmarEliminarProducto = id => {
@@ -35,13 +36,23 @@ const Producto = ({producto}) => { //Le pasamos el prop producto con destructuri
         
     }
 
+    //Funcion que redirigue de forma programada
+    const redireccionarEdicion = producto => {
+        dispatch(obtenerProductoEditar(producto) );
+        history.push(`/productos/editar/${producto.id}`)
+    }
+
     return ( 
         <tr>
             <th>{id}</th>
             <th>{nombre}</th>
             <th><span className="font-weight-bold">$ {precio}</span></th>
             <th>
-                <Link to={`/productos/editar/${id}`} className="btn btn-primary mr-2">Editar</Link>
+                <button 
+                    type="button"
+                    onClick={() => redireccionarEdicion(producto) }
+                    className="btn btn-primary mr-2"
+                >Editar</button>
                 <button
                     type="button"
                     className="btn btn-danger"

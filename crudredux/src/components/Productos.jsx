@@ -18,7 +18,8 @@ const Productos = () => {
         const cargarProductos = () => dispatch(obtenerProductosAction() );
         //2.Consultamos a la api para obtener los productos
         cargarProductos();
-    }, []) //Le pasamos un dispatch como referencia
+        // eslint-disable-next-line
+    }, []);
 
     //Obtenemos el State 
     const productos = useSelector(state => state.productos.productos);
@@ -45,7 +46,7 @@ const Productos = () => {
                 </thead>
 
                 <tbody>
-                    { productos.length === 0 ?  <p className="text-center">No hay productos</p> : (
+                    { productos.length === 0 ?  <tr><th><p className="text-center">No hay productos</p></th></tr> : (
                         productos.map(producto => ( //Mapeamos los elementos de productos
                             <Producto //Llamamos al componente producto
                                 key={producto.id}

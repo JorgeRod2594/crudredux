@@ -7,16 +7,20 @@ import {
     DESCARGA_PRODUCTOS_ERROR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINADO_EXITO,
-    PRODUCTO_ELIMINADO_ERROR
+    PRODUCTO_ELIMINADO_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    PRODUCTO_EDITADO_EXITO,
+    PRODUCTO_EDITADO_ERROR
 } from '../types/index';
-import Producto from '../components/Producto';
+
 
 //Cada reducer tiene su propio state
 const initialState = {
     productos: [], //Definimos el arreglo de productos. Este se llenará cuando hagamos las consultas a la db.
     error: null, //Para mostrar errores
     loading: false, //Para realizar la espera mientras carga los datos
-    productoeliminar: null
+    productoeliminar: null,
+    productoeditar: null
 }
 
 //El store de  pasa el state y el action que ejecutará el reducer, encaso de no pasarle nada le pasamos el initialState
@@ -38,7 +42,8 @@ export default function(state = initialState, action) { //Cualquier reducer es u
                 productos: [...state.productos, action.payload] //Hacemos una copia de productos para que no
                 //borre los productos que ya se encuentren y agregue el nuevo.
             }
-
+        
+        case PRODUCTO_EDITADO_ERROR:
         case AGREGAR_PRODUCTO_ERROR:
         case DESCARGA_PRODUCTOS_ERROR:
         case PRODUCTO_ELIMINADO_ERROR:
@@ -73,6 +78,24 @@ export default function(state = initialState, action) { //Cualquier reducer es u
                 productos: state.productos.filter(producto => producto.id !== state.productoeliminar),
                 //Le pasamos todos los productos menos el que deseamo eliminar. Iteramos en cada producto
                 productoeliminar: null //limpiamos la variable que guarda el id del producto a eliminar.
+            }
+
+        case OBTENER_PRODUCTO_EDITAR:
+            return {
+                ...state,
+                productoeditar: action.payload
+            }
+
+        case PRODUCTO_EDITADO_EXITO:
+            return {
+                ...state,
+                productoeditar: null, //liberamos el producto
+                //Debemos reacorrer cada uno de los productos hasta encontrar el que coincida en el id
+                //Los que no sean igual al id se retornan igual.
+                productos: state.productos.map(producto =>
+                    producto.id === action.payload.id ? producto = action.payload : producto //Reemplazo 
+                    //el producto actual con lo que se pase como payload
+                )
             }
 
         default:
