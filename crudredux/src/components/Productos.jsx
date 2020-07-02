@@ -18,7 +18,8 @@ const Productos = () => {
         const cargarProductos = () => dispatch(obtenerProductosAction() );
         //2.Consultamos a la api para obtener los productos
         cargarProductos();
-    }, []) //Le pasamos un dispatch como referencia
+        // eslint-disable-next-line
+    }, []);
 
     //Obtenemos el State 
     const productos = useSelector(state => state.productos.productos);
